@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui">
+    <style>
+        #ui_dialog{
+            position: absolute;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+    
+    <p:dialog id="ui_dialog" header="#{bundle.INFO_PRODUTO}" widgetVar="dialogInfoProduct" showEffect="fade" draggable="false" modal="true" resizable="false" hideEffect="fade">
+        <p:outputPanel id="infoProduct" style="text-align:center;">
+            <p:column rendered="#{not empty produtoControle.selectedProduct}">
+                <div>
+                    <h1>#{produtoControle.selectedProduct.description}</h1>
+                    <p:graphicImage value="#{produtoControle.selectedProduct.archive}" stream="false" height="300" width="500"/>
+                    <h3>R$: #{produtoControle.selectedProduct.price}</h3>
+                </div>
+            </p:column>
+        </p:outputPanel>
+    </p:dialog>
+</html>
+

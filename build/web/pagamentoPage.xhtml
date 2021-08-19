@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Payment Page</title>
+        <link rel="stylesheet" href="../resources/css/cssLayout.css" />
+        <link rel="stylesheet" href="../resources/css/primeflex.css" />
+    </h:head>
+    <h:body>
+        <p:growl id="growl" showDetail="true"/>
+        <h:form id="form">
+            <div class="product card">
+                <div class="card">
+                    <div>
+                        <p:tabMenu activeIndex="#{param.i}">
+                            <p:menuitem value="#{bundle.MENU_HOME}" outcome="/menu" icon="pi pi-fw pi-home">
+                                <f:param name="i" value="0"/>
+                            </p:menuitem>       
+                        </p:tabMenu>
+                        <h1 style="text-align: center">#{bundle.TITLE_PAGAMENTO}</h1>
+                    </div>
+                    <div class="div-pagamento">
+                        <div>
+                            <p:commandButton style="width: 40%;" update="growl form:parcelas bFinalizar" value="#{bundle.BOTAO_A_VISTA}" action="#{vendaControle.setAVista()}"/>
+                            <p:commandButton style="width: 60%;" update="growl form:parcelas bFinalizar" value="#{bundle.BOTAO_CREDITO}" action="#{vendaControle.setCredito()}"/>
+                        </div>
+
+                        <p:outputLabel value="#{bundle.PARCELAS}"/>
+                        <p:selectOneMenu style="margin-top: 10px; margin-left: 10px;" id="parcelas" value="#{vendaControle.qtdParcelas}" disabled="#{!(vendaControle.optionPayment == 'CREDITO')}">
+                            <f:selectItem itemLabel="1x" itemValue="1"/>
+                            <f:selectItem itemLabel="2x" itemValue="2"/>
+                            <f:selectItem itemLabel="3x" itemValue="3"/>
+                            <f:selectItem itemLabel="4x" itemValue="4"/>
+                            <f:selectItem itemLabel="5x" itemValue="5"/>
+                            <f:selectItem itemLabel="6x" itemValue="6"/>
+                            <f:selectItem itemLabel="7x" itemValue="7"/>
+                            <f:selectItem itemLabel="8x" itemValue="8"/>
+                            <f:selectItem itemLabel="9x" itemValue="9"/>
+                            <f:selectItem itemLabel="10x" itemValue="10"/>
+                            <f:selectItem itemLabel="11x" itemValue="11"/>
+                            <f:selectItem itemLabel="12x" itemValue="12"/>
+                        </p:selectOneMenu>
+                        <div>
+                            <p:commandButton id="bFinalizar" style="width: 100%; margin-top: 20px;" disabled="#{!(vendaControle.setOptionPayment)}" value="#{bundle.BOTAO_FINALIZAR}" icon="pi pi-shopping-cart" action="#{vendaControle.createVenda(usuarioControle.user)}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

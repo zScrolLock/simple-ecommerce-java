@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Projeto Loja - Menu</title>
+        <link rel="stylesheet" href="resources/css/main.css"/>
+        <link rel="stylesheet" href="../resources/css/cssLayout.css" />
+        <link rel="stylesheet" href="../resources/css/primeflex.css" />
+    </h:head>
+    <h:body>
+        <p:growl id="growl" showDetail="true"/>
+
+        <div class="card">
+            <h:form id="form">
+                <div>
+                    <p:tabMenu activeIndex="#{param.i}">
+                        <p:menuitem value="#{bundle.MENU_HOME}" outcome="menu" icon="pi pi-fw pi-home">
+                            <f:param name="i" value="0"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{bundle.MENU_PRODUTOS}" icon="pi pi-fw pi-calendar" outcome="#{produtoControle.otherPage()}">
+                            <f:param name="i" value="1"/>
+                        </p:menuitem>    
+                        <p:menuitem>
+                            <i class="pi pi-search" style="font-weight: bold"></i>
+                            <p:inputText id="name" style="margin-left: 20px" size="40" placeholder="#{bundle.TITLE_PROCURAR_PRODUTO}" title="#{bundle.TITLE_NOME}" value="#{produtoControle.productName}" />
+                            <p:commandButton icon="pi pi-search" action="#{produtoControle.searchProduct()}"/>
+                            <f:param name="i" value="2"/>
+                        </p:menuitem>
+                        <p:menuitem>
+                            <div class="main">
+                                <span><i class="pi pi-user"></i> #{usuarioControle.user.name} | #{usuarioControle.user.level} | </span>
+                                <span>
+                                    <i class="pi pi-sign-out" style="padding-left: 10px"/>
+                                </span>
+                                <p:commandButton value="#{bundle.MENU_LOGOUT}" action="#{usuarioControle.logout}"/>
+                            </div>
+                            <f:param name="i" value="3"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{bundle.MENU_CARRINHO}" icon="pi pi-shopping-cart" outcome="#{vendaControle.insertVenda()}">
+                            <f:param name="i" value="4"/>
+                        </p:menuitem>
+                    </p:tabMenu>
+                </div>  
+            </h:form>
+
+            <h:form>
+                <div class="content">
+                    <main class="content-main">
+                        <div>
+                            <h3 style="margin-top: 20px; margin-bottom: 20px; text-align: center; color: black; font-weight: bold">#{bundle.TITLE_CARROSEL}</h3>
+                        </div>
+                        <div class="card" style="width: 70%; margin: 0 auto">
+                            <p:carousel circular="true"  value="#{produtoControle.productList}" var="product" responsive="true">
+                                <div class="product">
+                                    <div class="product-grid-item p-p-5">
+                                        <div class="product-grid-item-content">
+                                            <p:graphicImage value="#{product.archive}" stream="false"/>
+                                            <div class="product-name">#{product.name}</div>
+                                            <div class="product-description">#{product.description}</div>
+                                        </div>
+                                        <div class="product-grid-item-bottom">
+                                            <h:outputText value="#{product.price}" styleClass="product-price-adjusts">
+                                                <f:convertNumber currencySymbol="R$" type="currency"/>
+                                            </h:outputText>
+                                        </div>
+                                        <p:commandButton
+                                            style="margin-left: 30%;"
+                                            value="#{bundle.BOTAO_ADICIONAR}"
+                                            icon="pi pi-shopping-cart"
+                                            action="#{produtoControle.setProductVenda(product.productCode, product.name, product.description, product.price, product.quantity, product.status, product.validadeDate, product.photoName, product.archive)}"
+                                            disabled="#{product.status == 'INDISPONIVEL'}">
+                                        </p:commandButton>
+                                    </div>
+                                </div>
+                            </p:carousel>
+                        </div>
+
+                        <div style="margin: 50px auto; width: 70%" >
+                            <div>
+                                <a href="https://pep.ifsp.edu.br/" target="blank">
+                                    <div class="anuncio">
+                                        <i class="pi pi-send" style="font-size: 50px"></i>
+                                        <h3 style="display: inline; margin-left: 20px; margin-right: 20px">IFSP</h3>
+                                        <p class="linksFooter">#{bundle.PATROCINIO}</p>
+                                    </div>                                
+                                </a>
+                            </div>
+
+                            <div>
+                                <a href="/projeto-vendas/faces/clientes/tablePageCliente.xhtml" target="blank">
+                                    <div class="anuncio">
+                                        <i class="pi pi-percentage" style="font-size: 50px"></i>
+                                        <h3 style="display: inline; margin-left: 20px; margin-right: 20px">DESCONTOS</h3>
+                                        <p class="linksFooter">#{bundle.DESCONTOS}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </h:form>
+
+            <div class="footer">
+                <div class="box">
+                    <div><a href="https://github.com/zScrolLock" target="blank"><i class="pi pi-github"></i><p class="linksFooter">Github</p></a></div>
+                    <div><a href="https://www.linkedin.com/in/lu%C3%ADs-augusto-cardoso-mota-20772920a/" target="blank"><i class="pi pi-id-card"></i><p class="linksFooter">LinkedIn</p></a></div>
+                    <div><i class="pi pi-envelope"><p class="linksFooter">luis.augustocm@hotmail.com</p></i></div>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+</html>
+

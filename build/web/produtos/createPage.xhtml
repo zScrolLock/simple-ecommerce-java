@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <p:dialog header="#{bundle.CADASTRO_TITULO}" widgetVar="dialogCadastro" showEffect="fade" modal="true" draggable="false" resizable="false">
+        <h:form id="form" enctype="multipart/form-data">
+            <p:panelGrid id="grid" columns="2" layout="grid" style="width: 40%">
+
+                <h:outputLabel for="name" value="#{bundle.NOME_CADASTRO}"/>
+                <p:inputText id="name" size="40" required="true" placeholder="Type a name" requiredMessage="Informe o Nome" title="#{bundle.TITLE_NOME}" value="#{produtoControle.prod.name}" />
+
+                <h:outputLabel for="description" value="#{bundle.DESCRICAO_CADASTRO}"/>
+                <p:inputText id="description" size="40" required="true" placeholder="Type a description" requiredMessage="Informe a Descrição" title="#{bundle.TITLE_DESCRICAO}" value="#{produtoControle.prod.description}" />
+
+                <h:outputLabel for="price" value="#{bundle.PRECO_CADASTRO}"/>
+                <p:inputText id="price" required="true" placeholder="Type a price" onfocus="this.value = ''" title="#{bundle.TITLE_PRECO}" requiredMessage="Informe o preço" value="#{produtoControle.prod.price}" />
+
+                <h:outputLabel for="dataValidade" value="#{bundle.DATA_VALIDADE}"/>
+                <p:calendar id="dataValidade" required="true" requiredMessage="Informe a Data de Validade" placeholder="dd/MM/yyyy" title="#{bundle.TITLE_DATA}" value="#{produtoControle.prod.validadeDate}" pattern="dd/MM/yyyy" />
+
+                <h:outputLabel for="quantity" value="#{bundle.QUANTIDADE_CADASTRO}"/>
+                <p:inputText id="quantity" required="true" onfocus="this.value = ''" placeholder="Type a Quantity" title="#{bundle.TITLE_QUANTIDADE}" requiredMessage="Informe a Quantidade" value="#{produtoControle.prod.quantity}" />
+
+                <p:growl id="messages" showDetail="true"/>
+
+                <div class="card">
+                    <p:fileUpload value="#{produtoControle.file}" mode="simple" skinSimple="true" accept=".jpg,.jpeg,.png"/>   
+                    <br/>
+                    <p:commandButton update="growl form:insertButton" value="Submit" action="#{produtoControle.upload()}" styleClass="p-mt-3 ui-button-outlined p-d-block"/>
+                </div>
+
+                <f:facet name="footer">
+                    <p:commandButton id="insertButton" value="#{bundle.BOTAO_CADASTRAR}" update="grid formTabela:product growl" action="#{produtoControle.insertProduct()}" disabled="#{!(produtoControle.isUpload)}"/>
+                </f:facet>
+            </p:panelGrid>
+        </h:form>
+    </p:dialog>
+</html>
+

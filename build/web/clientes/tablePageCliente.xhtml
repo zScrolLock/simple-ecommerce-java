@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Tabela de Produtos</title>
+        <link rel="stylesheet" href="../resources/css/cssLayout.css" />
+        <link rel="stylesheet" href="../resources/css/primeflex.css" />
+    </h:head>
+    <h:body>
+        <p:growl id="growl" showDetail="true"/>
+        <h:form id="form">
+            <div class="product card">
+                <div class="card">
+                    <div>
+                        <p:tabMenu activeIndex="#{param.i}">
+                            <p:menuitem value="#{bundle.MENU_HOME}" outcome="/menu" icon="pi pi-fw pi-home">
+                                <f:param name="i" value="0"/>
+                            </p:menuitem>       
+                        </p:tabMenu>
+                    </div>
+
+
+                    <p:dataView var="product" value="#{produtoControle.productList}" rows="12" paginator="true"
+                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                paginatorPosition="bottom"                
+                                gridIcon="pi pi-th-large" listIcon="pi pi-bars"
+                                layout="grid" gridRowStyleClass="p-lg-6 p-xl-4" flex="true">
+
+                        <p:dataViewGridItem>
+                            <div class="product-grid-item card border-1">
+                                <div class="product-grid-item-top">
+                                    <div>
+                                        <i class="pi pi-tag product-category-icon"/>
+                                        <span class="product-category">#{product.name}</span>
+                                    </div>
+                                    <span class="product-badge status-#{product.status.toString()}">#{product.status}</span>
+                                </div>
+                                <div class="product-grid-item-content">
+                                    <p:graphicImage value="#{product.archive}" stream="false"/>
+                                    <div class="product-name">#{product.name}</div>
+                                    <div class="product-description">#{product.description}</div>
+                                </div>
+                                <div class="product-grid-item-bottom">
+                                    <h:outputText value="#{product.price}" styleClass="product-price">
+                                        <f:convertNumber currencySymbol="R$" type="currency"/>
+                                    </h:outputText>
+                                    <p:commandButton
+                                                     value="#{bundle.BOTAO_ADICIONAR}"
+                                                     icon="pi pi-shopping-cart"
+                                                     action="#{produtoControle.setProductVenda(product.productCode, product.name, product.description, product.price, product.quantity, product.status, product.validadeDate, product.photoName, product.archive)}"
+                                                     disabled="#{product.status == 'INDISPONIVEL'}">
+                                    </p:commandButton>
+                                </div>
+                            </div>
+                        </p:dataViewGridItem>
+
+                        <p:dataViewListItem>
+                            <div class="product-list-item">
+                                <p:graphicImage value="#{product.archive}" stream="false"/>
+                                <div class="product-list-detail">
+                                    <div class="product-name">#{product.name}</div>
+                                    <div class="product-description">#{product.description}</div>
+                                    <i class="pi pi-tag product-category-icon"/><span
+                                        class="product-category">#{product.name}</span>
+                                </div>
+                                <div class="product-list-action">
+                                    <h:outputText value="#{product.price}" styleClass="product-price">
+                                        <f:convertNumber currencySymbol="R$" type="currency"/>
+                                    </h:outputText>
+                                    <p:commandButton 
+                                                     value="#{bundle.BOTAO_ADICIONAR}"
+                                                     icon="pi pi-shopping-cart"
+                                                     action="#{venda_ProdutoControle.insertVendaProduto(product)}"
+                                                     disabled="#{product.status == 'INDISPONIVEL'}">
+                                    </p:commandButton>
+                                    <span class="product-badge status-#{product.status.toString()}">#{product.status}</span>
+                                </div>
+                            </div>
+                        </p:dataViewListItem>
+                    </p:dataView>  
+                </div>
+            </div>  
+        </h:form>
+    </h:body>
+</html>
+

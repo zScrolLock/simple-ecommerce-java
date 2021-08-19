@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Tabela de Produtos</title>
+        <link rel="stylesheet" href="../resources/css/cssLayout.css" />
+        <link rel="stylesheet" href="../resources/css/primeflex.css" />
+    </h:head>                    
+    <h:body>
+        <p:growl id="growl" showDetail="true"/>
+
+        <div class="product card">
+            <h:form id="formTabela">
+
+                <div>
+                    <p:tabMenu activeIndex="#{param.i}">
+                        <p:menuitem value="#{bundle.MENU_HOME}" outcome="/menu" icon="pi pi-fw pi-home">
+                            <f:param name="i" value="0"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{bundle.MENU_CADASTRAR}" onclick="PF('dialogCadastro').show()" icon="pi pi-plus">
+                            <f:param name="i" value="1"/>
+                        </p:menuitem>
+                        <p:menuitem disabled="true">
+                            <div style="margin-left: 10px; width: 700px"></div>
+                            <f:param name="i" value="2"/>
+                        </p:menuitem>
+                        <p:menuitem>
+                            <p:outputLabel value="#{bundle.MENU_INFO}" />
+                        </p:menuitem>
+                    </p:tabMenu>
+                </div>
+
+                <p:dataTable id="product" var="product" value="#{produtoControle.productList}"
+                             selection="#{produtoControle.selectedProduct}" selectionMode="single"
+                             rowKey="#{product.productCode}"
+                             reflow="true"
+                             paginator="true" rows="10"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="{startRecord} - {endRecord} de {totalRecords} products"
+                             rowsPerPageTemplate="5,7,10,{ShowAll|'All Products'}"
+                             paginatorPosition="bottom"
+                             >
+
+                    <p:column headerText="#{bundle.CODIGO_PRODUTO}" responsivePriority="1">
+                        <h:outputText value="#{product.productCode}" />
+                    </p:column>
+
+                    <p:column headerText="#{bundle.NOME_CADASTRO}" responsivePriority="1" sortBy="#{product.name}" filterBy="#{product.name}" filterMatchMode="contains">
+                        <h:outputText value="#{product.name}" />
+                    </p:column>
+
+                    <p:column headerText="#{bundle.IMAGEM_PRODUTO}" responsivePriority="4">
+                        <p:graphicImage value="#{product.archive}" stream="false" width="100" height="100"/>
+                    </p:column>
+
+                    <p:column headerText="#{bundle.PRECO_CADASTRO}" responsivePriority="1">
+                        <h:outputText value="#{product.price}" />
+                    </p:column>
+
+                    <p:column headerText="#{bundle.DATA_VALIDADE}" responsivePriority="3" sortBy="#{product.validadeDate}" filterBy="#{produto.validadeDate}">
+                        <h:outputText value="#{product.validadeDate}" />
+                    </p:column>
+
+                    <p:column headerText="#{bundle.QUANTIDADE_CADASTRO}" responsivePriority="1" sortBy="#{product.quantity}">
+                        <h:outputText value="#{product.quantity}" />
+                    </p:column>                                     
+                </p:dataTable>
+                <p:contextMenu for="product">
+                    <p:menuitem id="bExcluir" value="#{bundle.BOTAO_EXCLUIR}" update="product growl" icon="pi pi-times" action="#{produtoControle.deleteProduct()}" />
+                    <p:menuitem value="#{bundle.BOTAO_VER}" update="infoProduct" icon="pi pi-search" onclick="PF('dialogInfoProduct').show()" />
+                </p:contextMenu>
+
+            </h:form>
+            <ui:include src="createPage.xhtml" />
+            <ui:include src="viewProduct.xhtml"/>
+        </div>         
+    </h:body>
+</html>
+
