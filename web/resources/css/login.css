@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21/05/2021, 10:27:12
+    Author     : zscrollock
+*/
+
+.passwordInput{
+    margin-top: 5px;
+    width: 28.2%;
+    margin-left: 7px;
+}
+
+#formLogin{
+    margin-left: 42%;
+    padding: 10px;
+    width: 50%;
+}
+
+.btnLogin{
+    height: 30px;
+    width: 35%;
+    background: #2196F3;
+    color: #ffffff;
+    border: 1px solid #2196F3;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.inputLogin{
+    margin-left: 7px;
+    width: 28.2%;
+}

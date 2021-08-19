@@ -1,0 +1,60 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21/05/2021, 12:15:29
+    Author     : zscrollock
+*/
+
+div.main {
+    padding: 10px;
+    border: 1px solid #4dacf7;
+    border-radius: 10px;
+    background: #4dacf7;
+    color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.linksFooter {
+    display: inline; 
+    margin-left: 5px;
+}
+
+.content {
+    background: gray;
+    height: 70%;
+}
+
+.footer{
+   margin-top: 150px;
+   padding: 20px;
+   background: #4dacf7;
+   color: #ffffff;
+}
+
+.content-main{
+    background: #ffffff;
+}
+
+.content-main a {
+    color: #000000;
+}
+
+.anuncio{
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    background: #4dacf7; 
+    border: none;
+    border-radius: 10px;
+}
+
+.anuncio p{
+    font-size: 20px;
+}

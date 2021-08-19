@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Projeto Loja - Produto</title>
+        <link rel="stylesheet" href="../resources/css/cssLayout.css" />
+        <link rel="stylesheet" href="../resources/css/primeflex.css" />
+        <link rel="stylesheet" href="resources/css/main.css"/>
+    </h:head>
+    <h:body>
+        <p:growl id="growl" showDetail="true"/>
+        <h:form id="form">
+            <div class="product card">
+                <div class="card">
+                    <div>
+                        <p:tabMenu activeIndex="#{param.i}">
+                            <p:menuitem value="#{bundle.MENU_HOME}" outcome="/menu" icon="pi pi-fw pi-home">
+                                <f:param name="i" value="0"/>
+                            </p:menuitem>       
+                        </p:tabMenu>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+        <h:form>
+            
+                
+                    <h1 style="text-align: center">#{produtoControle.prod.name}</h1>
+                    <p:graphicImage style="margin-left: 35%" value="#{produtoControle.prod.archive}" stream="false" height="500" width="500"/>
+                    <h3 style="text-align: center" >#{produtoControle.prod.description}</h3>
+                    <h3 style="text-align: center;" >R$: #{produtoControle.prod.price}</h3>
+
+                    <p:commandButton
+                        style="margin-left: 40%; width: 20%;"
+                        value="#{bundle.BOTAO_ADICIONAR}"
+                        icon="pi pi-shopping-cart"
+                        action="#{venda_ProdutoControle.insertVendaProduto(produtoControle.prod)}"
+                        disabled="#{product.status == 'INDISPONIVEL'}"/>
+                
+            
+        </h:form>
+        <div class="footer">
+                <div class="box">
+                    <div><a href="https://github.com/zScrolLock" target="blank"><i class="pi pi-github"></i><p class="linksFooter">Github</p></a></div>
+                    <div><a href="https://www.linkedin.com/in/lu%C3%ADs-augusto-cardoso-mota-20772920a/" target="blank"><i class="pi pi-id-card"></i><p class="linksFooter">LinkedIn</p></a></div>
+                    <div><i class="pi pi-envelope"><p class="linksFooter">luis.augustocm@hotmail.com</p></i></div>
+                </div>
+            </div>
+    </h:body>
+</html>
+

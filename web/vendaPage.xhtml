@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Shop Cart Page</title>
+        <link rel="stylesheet" href="../resources/css/cssLayout.css" />
+        <link rel="stylesheet" href="../resources/css/primeflex.css" />
+    </h:head>
+    <h:body>
+        <p:growl id="growl" showDetail="true"/>
+        <h:form id="form">
+            <div class="product card">
+                <div class="card">
+                    <div>
+                        <p:tabMenu activeIndex="#{param.i}">
+                            <p:menuitem value="#{bundle.MENU_HOME}" outcome="/menu" icon="pi pi-fw pi-home">
+                                <f:param name="i" value="0"/>
+                            </p:menuitem>       
+                            <p:menuitem>
+                                <i class="pi pi-search" style="font-weight: bold"></i>
+                                <p:inputText id="name" style="margin-left: 20px" size="40" placeholder="#{bundle.TITLE_PROCURAR_PRODUTO}" title="#{bundle.TITLE_NOME}" value="#{produtoControle.productName}" />
+                                <p:commandButton icon="pi pi-search" action="#{produtoControle.searchProduct()}"/>
+                                <f:param name="i" value="2"/>
+                            </p:menuitem>
+                        </p:tabMenu>
+                    </div>
+                    <p:dataView id="product" var="product" value="#{venda_ProdutoControle.itens}" rows="12" paginator="true"
+                                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                paginatorPosition="bottom"                
+                                gridIcon="pi pi-th-large" listIcon="pi pi-bars"
+                                layout="list" gridRowStyleClass="p-lg-6 p-xl-4" flex="true">
+
+                        <p:dataViewListItem>
+                            <div class="product-list-item">
+                                <p:graphicImage value="#{product.produto.archive}" stream="false"/>
+                                <div class="product-list-detail">
+                                    <div class="product-name">#{product.produto.name}</div>
+                                    <div class="product-description">#{product.produto.description}</div>
+                                    <i class="pi pi-tag product-category-icon"/><span
+                                        class="product-category">#{product.produto.name}</span>
+                                </div>
+                                <div class="product-list-action">
+                                    <h:outputText id="valor" value="#{product.quantidade * product.produto.price}" styleClass="product-price">
+                                        <f:convertNumber currencySymbol="R$" type="currency"/>
+                                    </h:outputText>
+                                    <p:commandButton
+                                        update="product growl"
+                                        action="#{venda_ProdutoControle.deleteVendaProduto(product.produto)}"
+                                        value="#{bundle.BOTAO_REMOVER_TODOS}"
+                                        icon="pi pi-trash">
+                                    </p:commandButton>
+                                    <span class="product-badge status-disponivel">Quantidade: #{product.quantidade}</span>
+                                    <div style="padding: 10px;">
+                                        <p:commandButton update="product growl valor" icon="pi pi-plus" action="#{venda_ProdutoControle.changeQuantityProductPlus(product.produto)}" disabled="#{(venda_ProdutoControle.plusQuantity)}"/> 
+                                        <p:commandButton update="product growl valor" icon="pi pi-minus" action="#{venda_ProdutoControle.changeQuantityProductMinus(product.produto)}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </p:dataViewListItem>
+                    </p:dataView>  
+                    <p:commandButton style="width: 100%; font-weight: bold; font-size: 20px;" value="Clique aqui para Efetuar o Pagamento" icon="pi pi-shopping-cart" action="#{venda_ProdutoControle.paymentPage()}"/>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+
