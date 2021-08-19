@@ -1,4 +1,4 @@
-# simple-ecommerce-java
+# Simple Ecommerce Build in Java
 A simples e-commerce build to college in java using jpa, glassfish and mysql. 
 <br />
 <br /><br />
